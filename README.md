@@ -35,8 +35,6 @@ HTML, CSS, JavaScript, jQuery 기반 자사 쇼핑몰 로그인, 회원가입 �
 
 
 ### 🛠️ 코드 리뷰
-(3) 아이디 패스워드 찾고 자동 입력되게
-
 (1) 비밀번호 유효성 검사
 - 사용자가 입력한 비밀번호 실시간 확인
 - 길이, 대/소문자, 숫자, 특수문자, 반복 문자 조건 충족 여부에 따라 안내 메시지 색상 변경
@@ -137,24 +135,85 @@ toLoginBtn.addEventListener('click', () => {
 });
 ```
 
-(3) 로컬스토리지, 데이터 비교 로그인
+(3) 로컬스토리지 검증 및 로그인 처리
+- 사용자가 입력한 아이디와 비밀번호를 기존 데이터베이스(userInfo)와 로컬스토리지(joinUserInfo)에서 검증
+- 아이디가 존재하지 않거나 비밀번호가 불일치하면 에러 메시지 표시
+- 로그인 성공 시 로컬스토리지에 로그인 상태(loggedIn) 저장 후 메인 페이지로 이동
 ```javascript
+
+// 로그인 폼 요소 선택
+let idTextBox = document.querySelector('.id_box'); // 아이디 입력창
+let pwTextBox = document.querySelector('.pw_box'); // 비밀번호 입력창
+const loginBtn = document.querySelector('.login_btn'); // 로그인 버튼
+
+// 로그인 버튼 클릭 시 login 함수 실행
+loginBtn.addEventListener('click', login);
+
+
+function login() {
+  // 로컬스토리지 회원 정보 문자열로 변경
+  const loadUserInfo = JSON.parse(localStorage.getItem('joinUserInfo'));
+
+  // 로그인 상태 및 에러 상태 초기화
+  let userLogin = false; // 로그인 성공 여부
+  let userIdErr = true; // 아이디 오류 여부
+  let userPwErr = false; // 비밀번호 오류 여부
+
+
+  // 기존 데이터베이스(userInfo)에서 아이디/비밀번호 검증
+  for (let i=0; i<userInfo.length; i++) {
+    if(idTextBox.value === userInfo[i].id) { // 아이디 일치할 시
+      userIdErr = false; // 아이디 오류 아님
+      if(pwTextBox.value === userInfo[i].pw) {  // 아이디 일치하며 비밀번호 일치할 시
+        userLogin = true; // 로그인 성공
+        break;
+      } else if (pwTextBox.value !== userInfo[i].pw) { // 비밀번호 불일치
+        userPwErr = true; // 비밀번호 오류
+        break;
+      }
+    }
+  }
+
+  // 데이터베이스에서 못 찾으면 로컬스토리지 검사
+  if (!userLogin && loadUserInfo) {
+    if (idTextBox.value === loadUserInfo.id) { // 아이디 일치할 시
+      userIdErr = false; // 아이디 오류 아님
+      if (pwTextBox.value === loadUserInfo.pw) { // 아이디 일치하며 비밀번호 일치
+        userLogin = true; // 로그인 성공
+      } else if (pwTextBox.value !== loadUserInfo.pw) { // 비밀번호 불일치
+        userPwErr = true; // 비밀번호 오류
+      }
+    }
+  }
+
+  // 로그인 결과에 따른 처리
+  if(userLogin) {
+    loginErr.style.display = 'none'; // 에러 메시지 숨김
+    localStorage.setItem('loggedIn', 'true'); // 로그인 상태 저장
+    location.href='./index.html' // 메인 페이지 이동
+  } else if (userIdErr) { // 아이디 오류일 시
+    loginErr.style.display = 'block';
+    loginErr.innerText = '존재하지 않는 아이디입니다.'
+  } else if (userPwErr) { // 비밀번호 오류일 시
+    loginErr.style.display = 'block';
+    loginErr.innerText = '비밀번호가 일치하지 않습니다.'
+  } 
+}; 
 ```
 <br/>
 
 
 
 ### 🔍 코드 리뷰 요약
-- Navigate를 통해 /sub 진입 시 기본 카테고리(classic)로 자동 리다이렉트 처리
-- Redux Toolkit 활용해 cartSlice로 장바구니 관리, optionCountOneSlice로 옵션 수량 상태 관리
-- Footer, Payment 페이지에서 장바구니 데이터 기반으로 총 수량, 총 금액 계산 및 UI 반영
-- 결제 페이지에서 모달 상태 관리로 결제 수단 선택 기능 구현
+- 비밀번호 입력 시 길이, 대/소문자, 숫자, 특수문자, 반복 문자 조건 실시간 검증
+- 회원가입 시 입력한 ID와 비밀번호를 로컬스토리지에 저장, 가입 완료 후 환영 모달 표시
+- 로그인 시 데이터베이스와 로컬스토리지를 동시에 검증
+- 아이디/비밀번호 오류 처리 후 로그인 성공 시 상태 저장 및 메인 페이지 이동
 <br><br/>
 
 ### 🔹 학습 포인트
-- React Router의 Outlet, Navigate를 통한 중첩 라우팅 패턴
-- 중첩 라우팅과 리다이렉트를 통한 사용자 흐름 제어 경험
-- 장바구니(추가, 삭제, 수량 증감) 같은 실무형 데이터 흐름을 Redux로 일관되게 관리하는 패턴 경험
-- useSelector, useDispatch를 통한 React-Redux 연동 방식 이해
-- 구조화된 상태 관리와 라우팅 설계가 유지보수성과 확장성 확보에 어떻게 기여하는지 경험
+- 실시간 입력 검증을 통해 사용자 친화적인 폼 유효성 검사 구현 경험
+- 로컬스토리지를 활용한 클라이언트 측 데이터 저장 및 활용 방식 이해
+- 데이터 검증과 상태 관리 로직을 분리하여 유지보수성과 재사용성을 고려한 코드 설계 경험
+- 조건별 에러 처리 및 UI 피드백 제공으로 사용자 경험 개선 방법 학습
 <br/><br/>
