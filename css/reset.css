@@ -1,0 +1,32 @@
+/* @@@@ reset @@@@ */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+/* @@@@ font @@@@ */
+body, html {
+  font-family: "Noto Sans KR", sans-serif;
+  letter-spacing: -1px;
+}

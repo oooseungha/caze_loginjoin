@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAZE_login</title>
+
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/login_join_reset.css">
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="icon" href="./image/favicon.png">
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- user -->
+  <script type="module" src="./js/login.js" defer></script>
+  <script type="module" src="./js/user.js" defer></script>
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+
+</head>
+<body>
+  
+  <section class="login">
+    <div class="logo">
+      <a href="./index.html"><img src="./image/logo.png" alt="브랜드 로고"></a>
+    </div>
+    
+    <div class="login_box">
+      <input type="text" class="text_box id_box" placeholder="아이디를 입력해 주세요." required autofocus>
+      <div class="x_icon id_x_icon"></div>
+      <input type="password" class="text_box pw_box" placeholder="비밀번호를 입력해 주세요." maxlength="20" required>
+      <div class="x_icon pw_x_icon"></div>
+      <div class="eye_icon"><i class="fa-solid fa-eye"></i></div>
+      <div class="login_err_box">
+        <span class="login_err_alert">존재하지 않는 아이디입니다.</span>
+      </div>
+    </div>
+
+    <div class="login_chk">
+      <div class="login_chk_box_01">
+        <input type="checkbox" id="id_chk" class="login_chk_btn">
+        <label for="id_chk" class="id_chk">
+          <div class="chk_btn"></div>
+          <span>아이디 저장</span>
+        </label>
+      </div>
+      <div class="login_chk_box_02">
+        <input type="checkbox" id="autologin_chk" class="login_chk_btn">
+        <label for="autologin_chk" class="autologin_chk">
+          <div class="autologin_btn"></div>
+          <span>자동 로그인</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="member_btn">
+      <button type="button" class="login_btn"">로그인</button>
+      <button type="button" class="join_btn"><a href="./join.html">회원가입 하기</a></button>
+    </div>
+
+    <ul class="find_box">
+      <li class="find_id_btn"><a href="#!">아이디 찾기</a></li>
+      <li class="find_pw_btn"><a href="#!">비밀번호 찾기</a></li>
+    </ul>
+
+    <div class="find_id_wrap">
+      <section class="find_id">
+
+        <div class="modal_x_btn">
+          <img src="./image/modal_x_btn.png" alt="모달창 종료 버튼">
+        </div>
+
+        <div class="find_id_input">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>아이디 찾기</p>
+            </div>
+
+            <div class="find_info_01">
+              <div class="find_info_title">
+                <span>이름</span>
+                <span class="info_required">*</span>
+              </div>
+              <input type="text" class="text_box find_id_name" placeholder="이름을 입력해 주세요." required autofocus>
+              <div class="x_icon find_name_x"></div>
+            </div>
+
+            <div class="find_info_02">
+              <div class="find_info_title">
+                <span>연락처</span>
+                <span class="info_required">*</span>
+              </div>
+              <input type="text" class="text_box find_id_num" placeholder="휴대전화 번호를 하이픈(-) 없이 입력해 주세요." maxlength="11" required>
+              <div class="x_icon find_num_x"></div>
+            </div>
+          </div><!--find_info_box-->
+
+          <div class="find_btn_box">
+            <button type="button" class="cancle_btn">취소</button>
+            <button type="button" class="find_btn find_id_submit_btn">아이디 찾기</button>
+          </div>
+        </div><!--find_id_input-->
+
+        <div class="find_result">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>아이디 찾기</p>
+            </div>
+
+            <div class="find_text">
+              <span>회원님의 아이디는'</span>
+              <span class="find_result_text">*********</span>
+              <span>'입니다.</span>
+            </div>
+
+            <div class="find_result_btn">
+              <button type="button" class="find_login_btn">해당 아이디로 로그인하기</button>
+              <button type="button" class="find_id_pw_btn">비밀번호 찾기</button>
+              <button type="button" class="cancle_btn">취소</button>
+            </div>
+          </div>
+        </div><!--find_result-->
+        <div class="find_fail">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>아이디 찾기</p>
+            </div>
+
+            <div class="find_text">
+              <span>등록된 아이디가 없습니다</span>
+            </div>
+
+            <div class="find_fail_btn">
+              <button type="button" class="find_join_btn"><a href="./join.html">회원가입 하기</a></button>
+              <button type="button" class="find_id_again_btn">아이디 다시 찾기</button>
+              <button type="button" class="cancle_btn">취소</button>
+            </div>
+          </div>
+        </div><!--find_fail-->
+      </section><!--find_id-->
+    </div><!--find_id_wrap-->
+
+
+    <div class="find_pw_wrap">
+      <section class="find_pw">
+        <div class="modal_x_btn">
+          <img src="./image/modal_x_btn.png" alt="모달창 종료 버튼">
+        </div>
+
+        <div class="find_pw_input">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>비밀번호 찾기</p>
+            </div>
+
+            <div class="find_info_01">
+              <div class="find_info_title">
+                <span>아이디</span>
+                <span class="info_required">*</span>
+              </div>
+              <input type="text" class="text_box find_pw_name" placeholder="아이디를 입력해 주세요." required autofocus>
+              <div class="x_icon find_name_x"></div>
+            </div>
+
+            <div class="find_info_02">
+              <div class="find_info_title">
+                <span>연락처</span>
+                <span class="info_required">*</span>
+              </div>
+              <input type="text" class="text_box find_pw_num" placeholder="휴대전화 번호를 하이픈(-) 없이 입력해 주세요." maxlength="11" required>
+              <div class="x_icon find_num_x"></div>
+            </div>
+          </div><!--find_info_box-->
+
+          <div class="find_btn_box">
+            <button type="button" class="cancle_btn">취소</button>
+            <button type="button" class="find_btn find_pw_submit_btn">임시 비밀번호 발송</button>
+          </div>
+        </div><!--find_pw_input-->
+
+
+        <div class="find_result">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>비밀번호 찾기</p>
+            </div>
+
+            <div class="find_text">
+              <p class="find_result_text">가입 시 등록한 이메일 주소로</p>
+              <p class="find_result_text">임시 비밀번호가 발송되었습니다.</p>
+            </div>
+
+            <div class="find_result_btn">
+              <button type="button" class="find_login_btn">로그인하기</button>
+              <button type="button" class="cancle_btn">취소</button>
+            </div>
+          </div>
+        </div><!--find_result-->
+        <div class="find_fail">
+          <div class="find_info_box">
+            <div class="find_title">
+              <div class="bullet"></div>
+              <p>비밀번호 찾기</p>
+            </div>
+
+            <div class="find_text">
+              <span>등록된 회원정보가 없습니다</span>
+            </div>
+
+            <div class="find_fail_btn">
+              <button type="button" class="find_join_btn"><a href="./join.html">회원가입 하기</a></button>
+              <button type="button" class="find_pw_again_btn">비밀번호 다시 찾기</button>
+              <button type="button" class="cancle_btn">취소</button>
+            </div>
+          </div>
+        </div><!--find_fail-->
+
+      </section>
+    </div><!--find_pw_wrap-->
+
+  </section><!--login-->
+
+
+</body>
+</html>

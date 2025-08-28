@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAZE_join</title>
+
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/login_join_reset.css">
+  <link rel="stylesheet" href="./css/join.css">
+  <link rel="icon" href="./image/favicon.png">
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- user -->
+  <script type="module" src="./js/join.js" defer></script>
+  <script type="module" src="./js/user.js" defer></script>
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+  <!-- zipcode_api -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+</head>
+<body>
+
+  <section class="join">
+    <div class="logo">
+      <a href="./index.html"><img src="./image/logo.png" alt="브랜드 로고"></a>
+    </div>
+
+    <div class="join_wrap">
+      <div class="join_title">
+        <div class="bullet"></div>
+        <p>회원가입</p>
+        <span>* 필수 입력 정보</span>
+      </div>
+
+      <div class="join_id_box">
+        <input type="text" class="text_box join_id_input required_info" placeholder="사용하실 아이디를 입력해 주세요. *" required autofocus>
+        <button type="button" class="id_chk_btn">아이디 중복체크</button>
+      </div>
+      <div class="id_chk_alert_box">
+        <p class="id_chk_alert">이미 사용 중인 아이디입니다.</p>
+      </div>
+
+      <div class="join_pw_box">
+        <input type="password" class="pw_box text_box required_info" placeholder="사용하실 비밀번호를 입력해 주세요. *" maxlength="20" required>
+        <div class="eye_icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="join_alert">
+          <i class="fa-solid fa-check pw_condition_01"></i>
+          <span class="pw_condition_02">대소문자, 숫자, 특수문자(!, @, #, $, %) 포함 8자 - 20자 이내</span>
+        </div>
+        <div class="join_alert">
+          <i class="fa-solid fa-check pw_condition_03"></i>
+          <span class="pw_condition_04">세 글자 이상 연속되는 문자 사용 불가</span>
+        </div>
+      </div>
+
+      <div class="pw_confirm_box">
+        <input type="password" class="confirm_box text_box required_info" placeholder="입력된 비밀번호를 다시 입력해 주세요. *" maxlength="20" required>
+        <div class="eye_icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="join_alert">
+          <i class="fa-solid fa-check pw_condition_05"></i>
+          <span class="pw_condition_06">비밀번호 일치</span>
+        </div>
+      </div>
+
+      <br><br>
+      
+      <div class="name_box">
+        <div class="join_info">
+          <span>이름</span>
+        </div>
+        <input type="text" class="text_box name_input required_info" placeholder="이름 *" required>
+      </div>
+
+      <br><br>
+
+      <div class="address_box">
+        <div class="join_info">
+          <span>주소</span>
+          <span class="join_required">*</span>
+        </div>
+
+        <div class="zip_search">
+          <input type="text" class="zip_code text_box required_info" id="user_zipcode">
+          <button type="button" class="zip_code_btn">우편번호 검색</button> 
+        </div>
+        <input type="text" class="address_01 text_box required_info" id="user_address">
+        <input type="text" class="address_02 text_box required_info" id="user_extra_address">
+        <input type="text" class="address_03 text_box" id="user_detail_address" placeholder="상세 주소를 입력해 주세요.">
+      </div>
+
+      <br><br>
+
+      <div class="call_num_box">
+        <div class="join_info">
+          <span>일반전화</span>
+        </div>
+          <select>
+            <option>선택</option>
+            <option>02</option>
+            <option>051</option>
+            <option>053</option>
+            <option>032</option>
+            <option>062</option>
+            <option>042</option>
+            <option>052</option>
+            <option>044</option>
+            <option>031</option>
+            <option>033</option>
+            <option>043</option>
+            <option>041</option>
+            <option>063</option>
+            <option>061</option>
+            <option>054</option>
+            <option>055</option>
+            <option>064</option>
+          </select>
+          <p>-</p>
+          <input type="tel" size="4" maxlength="4" class="text_box required_info" id ="tel_1st" required>
+          <p>-</p>
+          <input type="tel" size="4" maxlength="4" class="text_box required_info" id="tel_2nd" required>
+      </div>
+
+      <br><br>
+
+      <div class="phone_num_box">
+        <div class="join_info">
+          <span>휴대전화</span>
+          <span class="join_required">*</span>
+        </div>
+        <select>
+          <option>선택</option>
+          <option>010</option>
+          <option>011</option>
+          <option>016</option>
+        </select>
+        <p>-</p>
+        <input type="tel" maxlength="4" class="text_box phone_num required_info" id="phone_num_1st" required>
+        <p>-</p>
+        <input type="tel" maxlength="4" class="text_box phone_num required_info" 
+        id="phone_num_2nd" required>
+        <button type="button" class="phone_num_btn">인증번호 발송</button>
+      </div>
+
+      <div class="code_box">
+        <input type="text" maxlength="6" class="code_text text_box" placeholder="인증번호 여섯 자리를 입력해 주세요.">
+        <p class="timer">00:00</p>
+      </div>
+
+      <br><br>
+
+      <div class="email_box">
+        <div class="join_info">
+          <span>이메일</span>
+          <span class="join_required">*</span>
+        </div>
+
+        <input type="text" class="text_box required_info" required>
+        <p>@</p>
+        <input type="text" class="email_input text_box required_info" required>
+        <select name="email" id="email">
+          <option>직접 입력</option>
+          <option>naver.com</option>
+          <option>daum.net</option>
+          <option>nate.com</option>
+          <option>gmail.com</option>
+          <option>hotmail.com</option>
+          <option>yahoo.com</option>
+          <option>outlook.com</option>
+          <option>msn.com</option>
+          <option>inbox.com</option>
+        </select>
+      </div>
+
+      <div class="terms_box">
+
+        <input type="checkbox" id="term_01">
+        <label for="term_01" class="term_btn_01">
+          <div class="chk_btn"></div>
+          <span class="total_term_text">약관 전체 동의</span>
+        </label>
+
+        <input type="checkbox" id="term_02" class="terms_el">
+        <label for="term_02" class="term_btn_02">
+          <div class="chk_btn"></div>
+          <span>[필수] 만 14세 이상입니다.</span>
+          <span class="join_required">*</span>
+        </label>
+
+        <input type="checkbox" id="term_03" class="terms_el">
+        <label for="term_03" class="term_btn_03">
+          <div class="chk_btn"></div>
+          <span>[필수] 이용약관 동의</span>
+          <span class="join_required">*</span>
+        </label>
+
+        <input type="checkbox" id="term_04" class="terms_el">
+        <label for="term_04" class="term_btn_04">
+          <div class="chk_btn"></div>
+          <span>[필수] 개인정보 수집, 이용 동의</span>
+          <span class="join_required">*</span>
+        </label>
+        
+        <input type="checkbox" id="term_05" class="terms_el">
+        <label for="term_05" class="term_btn_05">
+          <div class="chk_btn"></div>
+          <span>[선택] 광고성 정보 수신 동의</span>
+        </label>
+      </div><!--terms_box-->
+
+      
+      <div class="join_title">
+        <div class="bullet"></div>
+        <p>배송지 정보(선택 입력)</p>
+        <span class="deliver_info_text">* 상품 주문 시 배송받을 배송지 정보를 입력해 주세요</span>
+      </div>
+
+      <div class="deliver_box">
+        <input type="checkbox" id="deliver_info">
+        <label for="deliver_info" class="deliver_info">
+          <div class="chk_btn"></div>
+          <span>가입 정보와 동일(체크 시 위 정보 자동 입력)</span>
+        </label>
+      </div>
+
+
+      <div class="name_box">
+        <div class="join_info">
+          <span>배송 받으실 분 이름</span>
+        </div>
+        <input type="text" class="text_box deliver_name_input" placeholder="이름">
+      </div>
+
+      <br><br>
+
+      <div class="address_box">
+        <div class="join_info">
+          <span>배송지 주소</span>
+        </div>
+
+        <div class="zip_search">
+          <input type="text" class="zip_code deliver_zip_code text_box" id="deliver_user_zipcode">
+          <button type="button" class="deliver_zip_code_btn">우편번호 검색</button> 
+        </div>
+        <input type="text" class="deliver_address_01 text_box required_info" id="deliver_user_address">
+        <input type="text" class="deliver_address_02 text_box required_info" id="deliver_user_extra_address">
+        <input type="text" class="deliver_address_03 text_box" id="deliver_user_detail_address" placeholder="상세 주소를 입력해 주세요.">
+      </div>
+
+      <br><br>
+
+      <div class="phone_num_box">
+        <div class="join_info">
+          <span>휴대전화</span>
+        </div>
+        <select>
+          <option>선택</option>
+          <option>010</option>
+          <option>011</option>
+          <option>016</option>
+        </select>
+        <p>-</p>
+        <input type="tel" maxlength="4" class="text_box" id="deliver_phone_num_1st">
+        <p>-</p>
+        <input type="tel" maxlength="4" class="text_box" id="deliver_phone_num_2nd">
+      </div>
+
+
+      <div class="submit_box">
+        <button type="button" class="submit_btn">가입하기</button>
+        <p class="submit_alert">* 입력되지 않은 필수 항목이 있습니다.</p>
+      </div>
+
+
+
+    </div><!--join_wrap-->
+  </section><!--join-->
+
+  <div class="welcome_wrap">
+    <section class="welcome_box">
+      <div class="welcome_message">
+        <span class="user_id"></span>
+        &nbsp;
+        <span>님</span>
+        <br>
+        <span>회원가입을 축하합니다!</span>
+      </div>
+      <div class="welcome_btn to_login_btn"><a href="#!"><p>로그인 후 쇼핑 계속하기</p></a></div>
+
+    </section>
+  </div>
+
+
+</body>
+</html>

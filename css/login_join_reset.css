@@ -1,0 +1,71 @@
+/* @@@@ reset @@@@ */
+* {
+  margin: 0;
+  padding: 0;
+  letter-spacing: -1px;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* @@@@ font @@@@ */
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  color: #191919;
+}
+
+
+/* @@@@ command @@@@ */
+.logo {
+  width: 200px;
+  margin: 0 auto 50px auto;
+}
+.bullet {
+  position: relative;
+}
+.bullet::before {
+  width: 10px;
+  height: 30px;
+  content: '';
+  background-color: #191919;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+.text_box {
+  display: block;
+  width: 370px; height: 40px;
+  font-size: 14px;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 1px solid #999; 
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  letter-spacing: normal;
+}
+.text_box:focus {
+  border: none;
+  border-bottom: 3px solid #8FBEE5;
+  box-sizing: border-box;
+  outline: none;
+}
+.join_required {
+  font-size: 18px;
+  color: #4177A4;
+  font-weight: 500;
+  line-height: 5px;
+}
+
+

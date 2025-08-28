@@ -1,0 +1,319 @@
+/* @@@@ login_css @@@@ */
+.login {
+  width: 1260px;
+  margin: 100px auto 0 auto;
+}
+
+
+.login .login_box {
+  margin: 0 auto;
+  padding: 10px 0;
+  position: relative;
+}
+.login .login_box .login_err_box {
+  width: 500px; height: 50px;
+  margin: 0 auto;
+  text-align: center;
+}
+.login .login_box .login_err_alert {
+  text-align: center;
+  line-height: 50px;
+  color: #4177A4;
+  font-weight: 500;
+  display: none;
+}
+.login .login_box input {
+  display: block;
+}
+.login .login_box .text_box {
+  margin: 0 auto;
+}
+.login .login_box .text_box:nth-child(2) {
+  margin-bottom: 0;
+}
+.login .login_box .x_icon {
+  width: 14px; height: 14px;
+  background-image: url(../image/x_btn.png);
+  background-size: contain;
+  position: absolute;
+  display: none;
+  cursor: pointer;
+}
+.login .login_box .id_x_icon {
+  top: 24px; left: 790px;
+}
+.login .login_box .pw_x_icon {
+  top: 63px; left: 765px;
+}
+.login .login_box .eye_icon {
+  position: absolute;
+  top: 57px; left: 790px;
+  cursor: pointer;
+}
+.login .login_box .eye_icon i {
+  font-size: 14px;
+  color: #999;
+}
+
+
+.login .login_chk {
+  width: 250px;
+  display: flex;
+  margin: 20px auto;
+  overflow: hidden;
+  gap: 0 10px;
+  justify-content: space-between;
+  position: relative;
+}
+.login .login_chk input {
+  width: 20px; height: 20px;
+  margin-top: 5px;
+  display: none;
+}
+.login .login_chk label {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+.login .login_chk label:hover {
+  color: #191919;
+  font-weight: 500;
+}
+.login .login_chk label .chk_btn,
+.login .login_chk label .autologin_btn {
+  width: 20px; height: 20px;
+  background-image: url(../image/btn_chk_none.png);
+}
+#id_chk:checked ~ .id_chk .chk_btn,
+#autologin_chk:checked ~ .autologin_chk .autologin_btn {
+  background-image: url(../image/btn_chk_on.png);
+}
+.login .login_chk .login_chk_box_01,
+.login .login_chk .login_chk_box_02 {
+  position: relative;
+}
+.login .login_chk .login_chk_box_01 label,
+.login .login_chk .login_chk_box_02 label {
+  display: flex;
+  gap: 0 10px;
+  cursor: pointer;
+}
+.login .login_chk .login_chk_box_01 div,
+.login .login_chk .login_chk_box_02 div {
+  margin-top: 3px;
+}
+
+
+.login .member_btn {
+  margin: 20px;
+}
+.login .member_btn button {
+  display: block;
+  width: 370px; height: 50px;
+  margin: 0 auto;
+  font-size: 18px;
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+}
+.login .member_btn .login_btn {
+  margin-bottom: 10px;
+  background-color: white;
+  color: #999;
+}
+.login .member_btn .login_active {
+  background-color: #8FBEE5;
+  color: #191919;
+  font-weight: 500;
+  cursor: pointer;
+}
+.login .member_btn .join_btn a {
+  display: block;
+  width: 370px; height: 50px;
+  background-color: #191919;
+  color: white;
+  line-height: 50px;
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+}
+.login .member_btn .join_btn a:hover {
+  background-color: #8FBEE5;
+  color: #191919;
+  font-weight: 500;
+}
+
+
+.login .find_box {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login .find_box li {
+  font-size: 0;
+  border-right: 1px solid #999;
+}
+.login .find_box li:last-child {
+  border-right: none;
+}
+.login .find_box li a {
+  font-size: 14px; 
+  color: #999;
+  padding: 0 30px;
+}
+.login .find_box li a:hover {
+  color: #191919;
+  font-weight: 500;
+}
+
+
+/* @@@@ find_id_pw @@@@ */
+.find_id_wrap,
+.find_pw_wrap {
+  width: 100%; height: 100vh;
+  position: fixed;
+  top: 0; left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+.find_id .find_result,
+.find_id .find_fail,
+.find_pw .find_result,
+.find_pw .find_fail {display: none;}
+
+.find_id,
+.find_pw {
+  width: 600px; height: 500px;
+  margin: 250px auto 0 auto;
+  background-color: white;
+  border-radius: 40px;
+  overflow: hidden;
+}
+.find_id .modal_x_btn,
+.find_pw .modal_x_btn {
+  width: 30px; height: 30px;
+  float: right;
+  margin: 30px 30px 0 0;
+}
+.find_id .find_info_box,
+.find_pw .find_info_box {
+  width: 370px;
+  margin: 90px auto 0 auto;
+}
+.find_info_01, .find_info_02 {
+  margin-bottom: 20px;
+}
+.find_id .find_info_box .find_title,
+.find_pw .find_info_box .find_title {
+  margin-bottom: 30px;
+}
+.find_id .find_info_box .find_title p,
+.find_pw .find_info_box .find_title p {
+  font-size: 24px;
+  font-weight: 500;
+  padding-left: 18px;
+}
+.find_id .find_info_box .find_info_title,
+.find_pw .find_info_box .find_info_title {
+  margin-bottom: 10px;
+}
+.find_id .find_info_box .find_info_title span,
+.find_pw .find_info_box .find_info_title span {
+  font-size: 16px;
+  font-weight: 500;
+}
+.find_id .find_info_box .find_info_title .info_required,
+.find_pw .find_info_box .find_info_title .info_required {
+  font-size: 18px;
+  color: #4177A4;
+  font-weight: 500;
+  line-height: 5px;
+}
+.find_id .find_btn_box,
+.find_pw .find_btn_box {
+  width: 370px;
+  margin: 0 auto;
+}
+.find_id .find_btn_box button,
+.find_pw .find_btn_box button {
+  display: block;
+  float: left;
+  width: 180px; height: 50px;
+  margin: 0 auto;
+  font-size: 18px;
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+}
+.find_id .find_btn_box .cancle_btn,
+.find_pw .find_btn_box .cancle_btn {
+  margin-right: 10px;
+  background-color: white;
+  color: #191919;
+  cursor: pointer;
+}
+.find_id .find_btn_box .cancle_btn:hover,
+.find_pw .find_btn_box .cancle_btn:hover {
+  background-color: #191919;
+  color: white;
+  font-weight: 500;
+}
+.find_id .find_btn_box .find_btn,
+.find_pw .find_btn_box .find_btn {
+  margin-bottom: 10px;
+  background-color: white;
+  color: #999;
+}
+.find_id .find_btn_box .find_active,
+.find_pw .find_btn_box .find_active {
+  background-color: #191919;
+  color: white;
+  cursor: pointer;
+}
+
+
+.find_result {}
+.find_result .find_text,
+.find_fail .find_text {
+  text-align: center;
+  margin: 50px 0;
+}
+.find_result .find_text span,
+.find_fail .find_text span {
+  font-size: 18px;
+  color: #191919;
+}
+.find_result .find_text .find_result_text {
+  color: #4177A4;
+  font-weight: 500;
+}
+.find_result .find_result_btn button,
+.find_fail .find_fail_btn button {
+  display: block;
+  width: 370px; height: 50px;
+  margin: 0 auto;
+  font-size: 18px;
+  border: 1px solid #e2e2e2;
+  background-color: white;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.find_result .find_result_btn button:hover,
+.find_fail .find_fail_btn button:hover {
+  font-weight: 500;
+}
+.find_result .find_result_btn button:nth-child(1),
+.find_fail .find_fail_btn button:nth-child(1) a {
+  display: block;
+  width: 370px; height: 50px;
+  background-color: #191919;
+  color: white;
+  line-height: 50px;
+  border-radius: 15px;
+}
+.find_result .find_result_btn button:nth-child(2),
+.find_fail .find_fail_btn button:nth-child(2) {
+  margin: 10px 0;
+}
+
+
