@@ -13,47 +13,36 @@ HTML, CSS, JavaScript, jQuery 기반 자사 쇼핑몰 로그인, 회원가입 �
 <br/><br/>
 
 ### 🛠️ 코드 리뷰
-(1) 비밀번호 유효성 검사
-- 사용자가 입력한 비밀번호 실시간 확인
+(1) 실시간 비밀번호 유효성 검사
 - 길이, 대/소문자, 숫자, 특수문자, 반복 문자 조건 충족 여부에 따라 안내 메시지 색상 변경
+- joinPw와 joinPwConfirm input에 input 이벤트 연결 후 사용자가 입력할 때마다 검사 함수 실행
+- 조건 검사 joinPwInput 함수: 입력값과 대문자/소문자로 변환한 값 비교하며 정규식 활용해 숫자, 특수문자 등 검사
+- 조건 충족 시 UI 피드백
+
+
 ```javascript
-// 비밀번호 입력 input 박스
 let joinPw = document.querySelector('.join_pw_box .pw_box');
-// 비밀번호 확인 input 박스
 let joinPwConfirm = document.querySelector('.pw_confirm_box .confirm_box');
 
-// 각 input에 이벤트 리스너 연결 (input 값이 바뀔 때마다 실행)
 joinPw.addEventListener('input', joinPwInput);
 joinPwConfirm.addEventListener('input', joinConfirmInput);
 
-// 비밀번호 입력 시 조건 검사 함수
 function joinPwInput() {
-
-  // 대문자가 포함되어 있는지 검사 → 전부 대문자로 바꿨을 때 원래 값과 다르면 대문자가 포함됨
   const pwUpper = joinPw.value !== joinPw.value.toUpperCase();
-
-  // 소문자가 포함되어 있는지 검사 → 전부 소문자로 바꿨을 때 원래 값과 다르면 소문자가 포함됨
   const pwLower = joinPw.value !== joinPw.value.toLowerCase();
 
-  // 숫자가 포함되어 있는지 검사 (정규식)
   const pwNumber = /[0-9]/.test(joinPw.value);
-
-  // 특수문자(!, @, #, $, %) 포함 여부 검사
   const pwChar = /[!@#$%]/.test(joinPw.value);
-
-  // 같은 문자가 3번 연속 반복되는지 검사
   const pwRepeat = /(.)\1\1/.test(joinPw.value);
 
-  // 조건 1~2 : 비밀번호 길이가 8~20자 + 대문자/소문자/숫자/특수문자 모두 포함해야 함
   if(joinPw.value.length >= 8 && joinPw.value.length <= 20 && pwUpper && pwLower && pwNumber && pwChar) {
-    condition01.style.color = '#4177A4'; // 조건 충족 -> 파란색
+    condition01.style.color = '#4177A4';
     condition02.style.color = '#4177A4';
   } else {
-    condition01.style.color = '#666'; // 조건 불충족 -> 회색
+    condition01.style.color = '#666';
     condition02.style.color = '#666';
   }
 
-  // 조건 3~4 : 같은 문자가 3번 연속 반복될 경우
   if (pwRepeat) {
     condition03.style.color = '#4177A4'
     condition04.style.color = '#4177A4'
@@ -64,115 +53,91 @@ function joinPwInput() {
 } 
 ```
 
-(2) 회원가입 시 로컬스토리지 저장
-- 사용자가 회원가입 폼에 입력한 ID와 비밀번호를 가져와 객체로 생성한 뒤 로컬스토리지에 저장
-- 가입 완료 후 환영 모달에 사용자 이름을 표시
-- 회원가입 양식 제출 후 로그인 페이지로 이동
+(2) 회원가입 폼 제출 시 입력값 검증 후 로컬스토리지 저장
+- joinIdInput / joinPw / joinPwConfirm 입력 시 유효성 및 조건 체크 (joinIdSubmit, joinPwInput, joinConfirmInput)
+- 회원 정보 객체 { id, pw } 생성 후 JSON 형태로 아이디와 가입 여부 로컬스토리지에 저장
+
 ```javascript
 
-// 회원가입 버튼 요소 가져오기
 const joinSubmitBtn = document.querySelector('.submit_btn');
 
+joinIdInput.addEventListener('input', joinIdSubmit);
+joinPw.addEventListener('input', joinPwInput);
+joinPwConfirm.addEventListener('input', joinConfirmInput);
 
-// 입력 이벤트 연결
-joinIdInput.addEventListener('input', joinIdSubmit); // ID 입력 시 유효성 체크
-joinPw.addEventListener('input', joinPwInput); // 비밀번호 입력 시 조건 체크
-joinPwConfirm.addEventListener('input', joinConfirmInput); // 비밀번호 확인 입력 시 조건 체크
-
-// 회원가입 양식 제출 이벤트
 joinSubmitBtn.addEventListener('click', () => {
-  // 입력값 가져오기
   const joinUserId = joinIdInput.value;
   const joinUserPw = joinPwConfirm.value;
   
   console.log('회원가입 ID:', joinUserId);
   console.log('회원가입 PW:', joinUserPw);
 
-  // 사용자 정보 객체 생성
   const joinUserInfo = {
     id: joinUserId,
     pw: joinUserPw
   };
 
-  // localStorage에 회원가입 정보 저장
   localStorage.setItem('joinUserInfo', JSON.stringify(joinUserInfo));
-  localStorage.setItem('joined', 'true'); // 회원가입 완료 상태 저장
-  localStorage.setItem('joinedId', joinIdInput.value); // 가입한 ID 저장
+  localStorage.setItem('joined', 'true');
+  localStorage.setItem('joinedId', joinIdInput.value);
 
-  // 환영 메시지 표시
   welcomeMessage.innerText = joinUserId;
-  joinWelcomeModal.style.display='block'; // 모달 열기
+  joinWelcomeModal.style.display='block';
   });
 };
-
-// 로그인 페이지 이동 버튼
-const toLoginBtn = document.querySelector('.to_login_btn');
-
-toLoginBtn.addEventListener('click', () => {
-  window.location.href = './login.html' // 양식 제출 후 로그인 페이지로 이동
-});
 ```
 
 (3) 로컬스토리지 검증 및 로그인 처리
-- 사용자가 입력한 아이디와 비밀번호를 기존 데이터베이스(userInfo)와 로컬스토리지(joinUserInfo)에서 검증
-- 아이디가 존재하지 않거나 비밀번호가 불일치하면 에러 메시지 표시
-- 로그인 성공 시 로컬스토리지에 로그인 상태(loggedIn) 저장 후 메인 페이지로 이동
+- 사용자가 입력한 아이디와 비밀번호를 1. 기존 데이터베이스(userInfo)와 2. 로컬스토리지(joinUserInfo)에서 검증
+- 로그인 성공 시 에러 메시지 숨겨지며 로컬스토리지에 로그인 상태(loggedIn) 저장
+- 아이디 / 패스워드 불일치 시 오류 메시지 표시
 ```javascript
 
-// 로그인 폼 요소 선택
-let idTextBox = document.querySelector('.id_box'); // 아이디 입력창
-let pwTextBox = document.querySelector('.pw_box'); // 비밀번호 입력창
-const loginBtn = document.querySelector('.login_btn'); // 로그인 버튼
+let idTextBox = document.querySelector('.id_box');
+let pwTextBox = document.querySelector('.pw_box');
+const loginBtn = document.querySelector('.login_btn');
 
-// 로그인 버튼 클릭 시 login 함수 실행
 loginBtn.addEventListener('click', login);
 
-
 function login() {
-  // 로컬스토리지 회원 정보 문자열로 변경
   const loadUserInfo = JSON.parse(localStorage.getItem('joinUserInfo'));
 
-  // 로그인 상태 및 에러 상태 초기화
-  let userLogin = false; // 로그인 성공 여부
-  let userIdErr = true; // 아이디 오류 여부
-  let userPwErr = false; // 비밀번호 오류 여부
+  let userLogin = false;
+  let userIdErr = true;
+  let userPwErr = false;
 
-
-  // 기존 데이터베이스(userInfo)에서 아이디/비밀번호 검증
   for (let i=0; i<userInfo.length; i++) {
-    if(idTextBox.value === userInfo[i].id) { // 아이디 일치할 시
-      userIdErr = false; // 아이디 오류 아님
-      if(pwTextBox.value === userInfo[i].pw) {  // 아이디 일치하며 비밀번호 일치할 시
-        userLogin = true; // 로그인 성공
+    if(idTextBox.value === userInfo[i].id) {
+      userIdErr = false;
+      if(pwTextBox.value === userInfo[i].pw) {
+        userLogin = true;
         break;
-      } else if (pwTextBox.value !== userInfo[i].pw) { // 비밀번호 불일치
-        userPwErr = true; // 비밀번호 오류
+      } else if (pwTextBox.value !== userInfo[i].pw) {
+        userPwErr = true;
         break;
       }
     }
   }
 
-  // 데이터베이스에서 못 찾으면 로컬스토리지 검사
   if (!userLogin && loadUserInfo) {
-    if (idTextBox.value === loadUserInfo.id) { // 아이디 일치할 시
-      userIdErr = false; // 아이디 오류 아님
-      if (pwTextBox.value === loadUserInfo.pw) { // 아이디 일치하며 비밀번호 일치
-        userLogin = true; // 로그인 성공
-      } else if (pwTextBox.value !== loadUserInfo.pw) { // 비밀번호 불일치
-        userPwErr = true; // 비밀번호 오류
+    if (idTextBox.value === loadUserInfo.id) {
+      userIdErr = false;
+      if (pwTextBox.value === loadUserInfo.pw) {
+        userLogin = true;
+      } else if (pwTextBox.value !== loadUserInfo.pw) {
+        userPwErr = true;
       }
     }
   }
 
-  // 로그인 결과에 따른 처리
   if(userLogin) {
-    loginErr.style.display = 'none'; // 에러 메시지 숨김
-    localStorage.setItem('loggedIn', 'true'); // 로그인 상태 저장
-    location.href='./index.html' // 메인 페이지 이동
-  } else if (userIdErr) { // 아이디 오류일 시
+    loginErr.style.display = 'none';
+    localStorage.setItem('loggedIn', 'true');
+    location.href='./index.html'
+  } else if (userIdErr) {
     loginErr.style.display = 'block';
     loginErr.innerText = '존재하지 않는 아이디입니다.'
-  } else if (userPwErr) { // 비밀번호 오류일 시
+  } else if (userPwErr) {
     loginErr.style.display = 'block';
     loginErr.innerText = '비밀번호가 일치하지 않습니다.'
   } 
