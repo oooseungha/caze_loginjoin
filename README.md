@@ -14,6 +14,8 @@ HTML, CSS, JavaScript, jQuery 기반 자사 쇼핑몰 로그인, 회원가입 �
 
 ### 🛠️ 코드 리뷰
 ## (1) 실시간 비밀번호 유효성 검사
+![Image](https://github.com/user-attachments/assets/3684f023-472d-40da-9bc3-04be3eefd8d7)
+
 - 길이, 대/소문자, 숫자, 특수문자, 반복 문자 조건 충족 여부에 따라 안내 메시지 색상 변경
 - joinPw와 joinPwConfirm input에 input 이벤트 연결 후 사용자가 입력할 때마다 검사 함수 실행
 - 조건 검사 joinPwInput 함수: 입력값과 대문자/소문자로 변환한 값 비교하며 정규식 활용해 숫자, 특수문자 등 검사
@@ -90,6 +92,8 @@ joinSubmitBtn.addEventListener('click', () => {
 <br/>
 
 ## (3) 로컬스토리지 검증 및 로그인 처리
+<img width="518" height="633" alt="Image" src="https://github.com/user-attachments/assets/e5bfdba0-9897-4a15-9ef9-684650e32e57" />
+
 - 사용자가 입력한 아이디와 비밀번호를 1. 기존 데이터베이스(userInfo)와 2. 로컬스토리지(joinUserInfo)에서 검증
 - 로그인 성공 시 에러 메시지 숨겨지며 로컬스토리지에 로그인 상태(loggedIn) 저장
 - 아이디 / 패스워드 불일치 시 오류 메시지 표시
